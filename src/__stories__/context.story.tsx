@@ -1,15 +1,21 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
+import {createTranslations} from '..';
+
+const {Provider, useT} = createTranslations();
 
 const Demo = () => {
+  const t = useT();
   return (
     <div>
-      Demo...
+      {t('Hello')}, user!
     </div>
   );
 };
 
 storiesOf('Context', module)
   .add('Demo', () =>
-    <Demo/>
+    <Provider value={{Hello: 'Bonjour'}}>
+      <Demo/>
+    </Provider>
   )

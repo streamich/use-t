@@ -7386,6 +7386,13 @@ react-treebeard@^3.1.0:
     shallowequal "^1.1.0"
     velocity-react "^1.4.1"
 
+react-universal-interface@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-universal-interface/-/react-universal-interface-0.5.0.tgz#8dfa58c2601a076aa3ae763216765cc9d99c8397"
+  integrity sha512-AXjVgwnCEz3UCV768Q8lKPYTdJ4xIZ8Mrynq0Z7wKpVcHESK0cBujt98Fn17tQwPcoJDy9flseU7mrh/8NR2QQ==
+  dependencies:
+    tslib "^1.9.3"
+
 react@16.7.0-alpha.0:
   version "16.7.0-alpha.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.7.0-alpha.0.tgz#e2ed4abe6f268c9b092a1d1e572953684d1783a9"
@@ -8773,7 +8780,7 @@ ts-node@^7.0.1:
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
-tslib@^1.9.0:
+tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
