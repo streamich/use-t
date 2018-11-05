@@ -49,7 +49,9 @@
     "@semantic-release/git": "^7.0.5",
     "rxjs": "^6.3.3",
     "callbag-interval": "^1.1.0",
-    "react-spring": "^6.1.6"
+    "react-spring": "^6.1.6",
+    "babel-loader": "^8.0.4",
+    "@babel/core": "^7.1.2"
   },
   "peerDependencies": {
     "react": "16.7.0-alpha.0",
