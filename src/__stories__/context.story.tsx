@@ -2,13 +2,7 @@ import * as React from 'react';
 import {storiesOf} from '@storybook/react';
 import {createTranslations} from '..';
 
-const {Provider, useT, withT} = createTranslations({
-  preloaded: {
-    en: {
-      main: {Hello: 'Bonjour', welcome: 'Lala!'},
-    }
-  }
-});
+const {Provider, useT, withT} = createTranslations();
 
 const Demo = () => {
   const [t] = useT();
@@ -29,19 +23,20 @@ const Hoc = withT(({t}) => {
 
 storiesOf('Context', module)
   .add('Demo', () =>
-    <Provider>
+    <Provider map={{
+      en: {
+        main: {Hello: 'Bonjour', welcome: 'Lala!'}
+      }
+    }}>
       <Demo/>
     </Provider>
   )
-  .add('Overwrite originals', () =>
-    <Provider>
-      <Provider>
-        <Demo/>
-      </Provider>
-    </Provider>
-  )
   .add('Hoc', () =>
-    <Provider>
+    <Provider map={{
+      en: {
+        main: {Hello: 'Bonjour', welcome: 'Lala!'}
+      }
+    }}>
       <Hoc/>
     </Provider>
   )

@@ -23,19 +23,3 @@ export interface TranslationsNamespaced {
 export interface TranslationMap {
   [locale: string]: TranslationsNamespaced;
 }
-
-// Options provided to factory.
-export interface Options {
-  locale?: string; // Default locale.
-  ns?: string; // Default namespace.
-  loader?: (locale: string, namespace: string) => Promise<Translations>;
-  preloaded?: TranslationMap;
-}
-
-// Internal state of the translator.
-export interface State extends Options {
-  locale: string; // Active locale.
-  ns: string; // Active namespace.
-  nss: string[]; // All known namespaces.
-  map: TranslationMap;
-}
