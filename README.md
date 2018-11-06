@@ -2,9 +2,9 @@
   <h1>
     <br/>
     <br/>
-    👍
+    🗺
     <br />
-    react-use
+    use-t
     <br />
     <br />
     <br />
@@ -29,7 +29,20 @@
 </div>
 
 
-- [`createTranslationContext`](./docs/Sensors.md)
+<h2 align="center"><sub>Reference</sub></h2>
+
+<pre>
+import {<a href="./docs/createTranslations.md">createTranslations</a>} from <a href="https://www.npmjs.com/package/use-t">'use-t'</a>;
+
+const {
+  <a href="./docs/Provider.md">Provider</a>,
+  <a href="./docs/Provider.md">useT</a>,
+  <a href="./docs/Provider.md">withT</a>,
+  <a href="./docs/Provider.md">Trans</a>,
+  <a href="./docs/Provider.md">Consumer</a>,
+  <a href="./docs/Provider.md">context</a>,
+} = createTranslations();
+</pre>
 
 
 <br />
