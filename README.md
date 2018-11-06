@@ -26,9 +26,16 @@
 <pre>
 import {<a href="./docs/createTranslations.md">createTranslations</a>} from <a href="https://www.npmjs.com/package/use-t">'use-t'</a>;
 
-const {<a href="./docs/Provider.md">Provider</a>, <a href="./docs/Provider.md">useT</a>, <a href="./docs/Provider.md">withT</a>,
-    <a href="./docs/Provider.md">Trans</a>, <a href="./docs/Provider.md">Consumer</a>, <a href="./docs/Provider.md">context</a>} = createTranslations();
+const {<a href="./docs/Provider.md">Provider</a>, <a href="./docs/useT.md">useT</a>, <a href="./docs/withT.md">withT</a>,
+    <a href="./docs/Trans.md">Trans</a>, <a href="./docs/Consumer.md">Consumer</a>, <a href="./docs/context.md">context</a>} = createTranslations();
 </pre>
+
+- [`<Provider>`](./docs/Provider.md)
+- [`useT`](./docs/useT.md)
+- [`withT`](./docs/withT.md)
+- [`<Trans>`](./docs/Trans.md)
+- [`<Consumer>`](./docs/Consumer.md)
+- [`context`](./docs/context.md)
 
 
 <br />
