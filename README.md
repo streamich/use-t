@@ -61,7 +61,7 @@ const Hello = (props) => {
   );
 };
 
-<Provider map={{en: {main: {Hello: 'Hello'}}}}>
+<Provider locale="de" map={{de: {main: {Hello: 'Hallo'}}}}>
   <Hello />
 </Provider>
 ```

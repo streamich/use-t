@@ -11,5 +11,10 @@ It provides an object with translation function `t` and translation state `T`.
   <br />
   <button onClick={() => T.setLocale('en')}>en</button>
   <button onClick={() => T.setLocale('fr')}>fr</button>
-}</div>
+}</Trans>
 ```
+
+
+## Props
+
+- `ns` &mdash; a namespace or an array of namespaces, defaults to `'main'`.
