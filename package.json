@@ -32,7 +32,8 @@
   "dependencies": {
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
-    "react-universal-interface": "^0.5.0"
+    "react-universal-interface": "^0.5.0",
+    "tiny-invariant": "^1.0.2"
   },
   "devDependencies": {
     "@storybook/react": "^4.0.2",
