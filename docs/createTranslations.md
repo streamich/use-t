@@ -1,7 +1,7 @@
 # `createTranslations()`
 
 Creates translation context, hook, higher order component, and render prop that you
-all can use together to manage translation in your app.
+can use together to manage translations in your app.
 
 ```js
 import {createTranslations} from 'use-t';
