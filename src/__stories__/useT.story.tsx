@@ -38,14 +38,18 @@ storiesOf('useT', module)
       <Demo/>
     </Provider>
   )
-  .add('Load translations dynamically', () =>
+  .add('Load translations dynamically, 2 sec delay', () =>
     <Provider
       map={{
         en: {
           main: {Hello: 'Hello', welcome: 'Welcome!'}
         },
       }}
-      loader={() => Promise.resolve({Hello: 'Bonjour', welcome: 'Lala!'})}
+      loader={() => new Promise(resolve => {
+        setTimeout(() => {
+          resolve({Hello: 'Bonjour', welcome: 'Lala!'});
+        }, 2000);
+      })}
     >
       <Demo/>
     </Provider>

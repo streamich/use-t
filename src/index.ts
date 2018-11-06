@@ -44,7 +44,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
         this.setState({...this.state});
         invariant(this.props.loader, 'use-t provider .loader() prop not set.');
         const translations = await this.props.loader!(locale, ns);
-        this.state.map[this.state.locale][ns] = translations;
+        this.state.map[locale][ns] = translations;
         this.setState({...this.state});
       }
     };
@@ -93,7 +93,8 @@ export const createTranslations = (ns: string = 'main'): Result => {
   };
 
   const defaultT = k => k;
-  const useT: UseT = (nss: string[] = [ns]) => {
+  const useT: UseT = (namespaces?: string | string[]) => {
+    const nss: string[] = namespaces instanceof Array ? namespaces : [namespaces || ns];
     const state = (React as any).useContext(context) as ProviderState;
     return [state.createT ? state.createT(nss) : defaultT, state];
   };
