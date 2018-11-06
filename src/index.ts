@@ -1,7 +1,6 @@
 import * as React from 'react';
-import createT from './createT';
 import {render, createEnhancer} from 'react-universal-interface';
-import {ProviderProps, ProviderState, TranslateProps, Result, UseT} from './types';
+import {ProviderProps, ProviderState, TranslateProps, Result, UseT, TranslatorFn} from './types';
 import invariant from 'tiny-invariant';
 
 export * from './types';
@@ -31,6 +30,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
         map,
         load: this.load,
         setLocale: this.setLocale,
+        createT: this.createT,
       };
     }
 
@@ -49,7 +49,34 @@ export const createTranslations = (ns: string = 'main'): Result => {
     };
 
     setLocale = (locale: string) => {
+      if (!this.state.map[locale])
+        this.state.map[locale] = {};
       this.setState({locale});
+    };
+
+    createT = (nss: string[] = []) => {
+      const {locale} = this.state;
+      const translationsNamespaced = this.state.map[locale];
+      for (const ns of nss) {
+        if (!translationsNamespaced[ns]) {
+          this.load(locale, ns).catch(err => console.error(err));
+        }
+      }
+
+      const T: TranslatorFn = (key: string, ...args: any[]) => {
+        for (const namespace of nss) {
+          const translations = translationsNamespaced[namespace];
+          const value = translations[key];
+          if (value !== undefined) {
+            return typeof value === 'function'
+              ? value(T, ...args)
+              : value || key;
+          }
+        }
+        return key;
+      };
+
+      return T;
     };
 
     render () {
@@ -60,16 +87,17 @@ export const createTranslations = (ns: string = 'main'): Result => {
     }
   };
 
+  const defaultT = k => k;
   const useT: UseT = (nss: string[] = [ns]) => {
     const state = (React as any).useContext(context) as ProviderState;
-    return [createT(state.map, state.locale, nss), state];
+    return [state.createT ? state.createT(nss) : defaultT, state];
   };
 
   const Translate: React.SFC<TranslateProps> = (props) => {
-    let nss: string[] = props.ns instanceof Array
+    const nss: string[] = props.ns instanceof Array
       ? props.ns : [props.ns || ns];
     return React.createElement(Consumer, null, (state) => {
-      const T = createT(state.map, state.locale, nss);
+      const T = state.createT(nss);
       return render(props, T, state)
     });
   };

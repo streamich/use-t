@@ -8,9 +8,6 @@ export interface PropsWithT {
   t: TranslatorFn;
 }
 
-// Default translation function.
-export const T: TranslatorFn = (key: string) => key;
-
 // Collection of translations.
 export interface Translations {
   [key: string]: string | ((T: TranslatorFn, ...args: any[]) => any);
@@ -39,6 +36,7 @@ export interface ProviderState {
   map: TranslationMap;
   load: (locale: string, namespace: string) => Promise<void>;
   setLocale: (locale: string) => void;
+  createT: (namespaces: string[]) => TranslatorFn;
 }
 
 export interface TranslateProps extends UniversalProps<TranslatorFn> {

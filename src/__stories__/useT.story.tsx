@@ -16,15 +16,7 @@ const Demo = () => {
   );
 };
 
-const Hoc = withT(({t}) => {
-  return (
-    <div>
-      {t('Hello')}, user! {t('welcome')}
-    </div>
-  );
-});
-
-storiesOf('Context', module)
+storiesOf('useT', module)
   .add('Switch preloaded translations', () =>
     <Provider map={{
       en: {
@@ -45,4 +37,19 @@ storiesOf('Context', module)
     }}>
       <Demo/>
     </Provider>
+  )
+  .add('Load translations dynamically', () =>
+    <Provider
+      map={{
+        en: {
+          main: {Hello: 'Hello', welcome: 'Welcome!'}
+        },
+      }}
+      loader={() => Promise.resolve({Hello: 'Bonjour', welcome: 'Lala!'})}
+    >
+      <Demo/>
+    </Provider>
+  )
+  .add('Without provider', () =>
+    <Demo/>
   )
