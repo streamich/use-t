@@ -1,7 +1,10 @@
 import {UniversalProps} from 'react-universal-interface';
 
 // Translation function `t`.
-export type TranslatorFn = (key: string, ...args: any[]) => string;
+export interface TranslatorFn {
+  (key: string, ...args: any[]): string;
+  t: (key: string) => (strs?: TemplateStringsArray, ...args: any[]) => string;
+}
 
 // Props of React components with translation function.
 export interface PropsWithT {
@@ -10,7 +13,7 @@ export interface PropsWithT {
 
 // Collection of translations.
 export interface Translations {
-  [key: string]: string | ((T: TranslatorFn, ...args: any[]) => any);
+  [key: string]: string | ((...args: any[]) => any);
 }
 
 // Collecion of translations by namespace.
