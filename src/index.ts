@@ -75,7 +75,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
             const value = translations[key];
             if (value !== undefined) {
               return typeof value === 'function'
-                ? value(t, ...args) : value || key;
+                ? value(...args) : value || key;
             }
           }
         }
