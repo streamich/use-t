@@ -5,15 +5,8 @@
     🗺
     <br />
     use-t
-    <br />
-    <sup>
-        <br />
-        Translations for React.
-    </sup>
-    <br />
-    <br />
-    <br />
   </h1>
+  <sup>Translations for React.</sup>
   <br />
   <br />
   <br />
@@ -23,6 +16,10 @@
 
 <h2 align="center">Installation</h2>
 <pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
+
+
+<br />
+<br />
 
 
 <h2 align="center">Reference</h2>
@@ -60,6 +57,7 @@ const Hello = (props) => {
 ```
 
 
+<br />
 <br />
 
 
