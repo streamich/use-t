@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {render} from 'react-universal-interface';
-import {ProviderProps, ProviderState, TranslateProps, Result, UseT, TranslatorFn, WithT} from './types';
+import {ProviderProps, ProviderState, TransProps, Result, UseT, TranslatorFn, WithT} from './types';
 import invariant from 'tiny-invariant';
 
 export * from './types';
@@ -102,13 +102,11 @@ export const createTranslations = (ns: string = 'main'): Result => {
     return Enhanced;
   };
 
-  const Translate: React.SFC<TranslateProps> = (props) => {
+  const Trans: React.SFC<TransProps> = (props) => {
     const nss: string[] = props.ns instanceof Array
       ? props.ns : [props.ns || ns];
-    return React.createElement(Consumer, null, (state) => {
-      const T = state.createT(nss);
-      return render(props, T, state)
-    });
+    const [t, T] = useT(nss);
+    return render(props, {t, T});
   };
 
   return {
@@ -116,7 +114,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
     Provider,
     context,
     useT,
-    Translate,
+    Trans,
     withT,
   };
 };

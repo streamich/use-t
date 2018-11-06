@@ -39,7 +39,7 @@ export interface ProviderState {
   createT: (namespaces: string[]) => TranslatorFn;
 }
 
-export interface TranslateProps extends UniversalProps<TranslatorFn> {
+export interface TransProps extends UniversalProps<{t: TranslatorFn, T: ProviderState}> {
   ns?: string | string[];
 }
 
@@ -47,10 +47,6 @@ export interface TranslateProps extends UniversalProps<TranslatorFn> {
 export type UseT = (namespaces?: string[]) => [TranslatorFn, ProviderState];
 
 // Higler order component.
-export interface WithProps {
-  t?: TranslatorFn;
-  T?: ProviderState;
-}
 export type WithT = (Comp: React.SFC<any>, ns?: string | string[]) => React.SFC<any>;
 
 export interface Result {
@@ -59,5 +55,5 @@ export interface Result {
   context: React.Context<ProviderState>;
   useT: UseT;
   withT: WithT;
-  Translate: any;
+  Trans: React.SFC<TransProps>;
 }
