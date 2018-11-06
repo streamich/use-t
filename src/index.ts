@@ -1,29 +1,13 @@
 import * as React from 'react';
 import createT from './createT';
-import {render, createEnhancer, UniversalProps} from 'react-universal-interface';
-import {TranslatorFn, TranslationMap, Translations} from './types';
+import {render, createEnhancer} from 'react-universal-interface';
+import {ProviderProps, ProviderState, TranslateProps, Result, UseT} from './types';
 import invariant from 'tiny-invariant';
 
-export interface ProviderProps {
-  locale?: string; // Default locale.
-  ns?: string; // Default namespace.
-  loader?: (locale: string, namespace: string) => Promise<Translations>;
-  map?: TranslationMap; // Preloaded translations.
-}
-export interface ProviderState {
-  locale: string; // Active locale.
-  ns: string; // Active namespace.
-  map: TranslationMap;
-  load: (locale: string, namespace: string) => Promise<void>;
-  setLocale: (locale: string) => void;
-}
+export * from './types';
 
-export interface TranslateProps extends UniversalProps<TranslatorFn> {
-  ns?: string | string[];
-}
-
-export const createTranslations = (ns: string = 'main') => {
-  const context = React.createContext({});
+export const createTranslations = (ns: string = 'main'): Result => {
+  const context = React.createContext<ProviderState>({} as any);
   const {Consumer} = context;
   const Provider = class extends React.Component<ProviderProps, ProviderState> {
     static defaultProps = {
@@ -76,8 +60,8 @@ export const createTranslations = (ns: string = 'main') => {
     }
   };
 
-  const useT = (nss: string[] = [ns]) => {
-    const state = (React as any).useContext(context);
+  const useT: UseT = (nss: string[] = [ns]) => {
+    const state = (React as any).useContext(context) as ProviderState;
     return [createT(state.map, state.locale, nss), state];
   };
 

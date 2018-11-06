@@ -5,10 +5,13 @@ import {createTranslations} from '..';
 const {Provider, useT, withT} = createTranslations();
 
 const Demo = () => {
-  const [t] = useT();
+  const [t, {setLocale}] = useT();
   return (
     <div>
       {t('Hello')}, user! {t('welcome')}
+      <br />
+      <button onClick={() => setLocale('en')}>en</button>
+      <button onClick={() => setLocale('fr')}>fr</button>
     </div>
   );
 };
@@ -22,21 +25,24 @@ const Hoc = withT(({t}) => {
 });
 
 storiesOf('Context', module)
-  .add('Demo', () =>
+  .add('Switch preloaded translations', () =>
     <Provider map={{
       en: {
+        main: {Hello: 'Hello', welcome: 'Welcome!'}
+      },
+      fr: {
         main: {Hello: 'Bonjour', welcome: 'Lala!'}
-      }
+      },
     }}>
       <Demo/>
     </Provider>
   )
-  .add('Hoc', () =>
+  .add('Missing language', () =>
     <Provider map={{
       en: {
-        main: {Hello: 'Bonjour', welcome: 'Lala!'}
-      }
+        main: {Hello: 'Hello', welcome: 'Welcome!'}
+      },
     }}>
-      <Hoc/>
+      <Demo/>
     </Provider>
   )
