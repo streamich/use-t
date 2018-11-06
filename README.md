@@ -23,13 +23,22 @@
 
 
 <h2 align="center">Reference</h2>
-<pre>
-import {<a href="./docs/createTranslations.md">createTranslations</a>} from <a href="https://www.npmjs.com/package/use-t">'use-t'</a>;
 
-const {<a href="./docs/Provider.md">Provider</a>, <a href="./docs/useT.md">useT</a>, <a href="./docs/withT.md">withT</a>,
-    <a href="./docs/Trans.md">Trans</a>, <a href="./docs/Consumer.md">Consumer</a>, <a href="./docs/context.md">context</a>} = createTranslations();
-</pre>
 
+```js
+import {createTranslations} from 'use-t';
+
+const {
+    Provider,
+    useT,
+    withT,
+    Trans,
+    Consumer,
+    context,
+} = createTranslations();
+```
+
+- [`createTranslations`](./docs/createTranslations.md)
 - [`<Provider>`](./docs/Provider.md)
 - [`useT`](./docs/useT.md)
 - [`withT`](./docs/withT.md)
