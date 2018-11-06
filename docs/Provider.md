@@ -1,6 +1,6 @@
 # `<Provider>`
 
-Context provider which provides keeps track of all translations and provides
+Context provider which keeps track of all translations and provides
 methods to change language and to load more translations. Wrap your application
 with this component.
 

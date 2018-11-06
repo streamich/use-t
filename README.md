@@ -6,26 +6,26 @@
     <br />
     use-t
     <br />
+    <sup>
+        <br />
+        Translations for React.
+    </sup>
     <br />
     <br />
     <br />
   </h1>
-  <sup>
-    <br />
-    <br />
-    <br />
-    Translations for React.
-  </sup>
   <br />
-  <pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
   <br />
   <br />
   <br />
 </div>
 
 
-<h2 align="center">Reference</h2>
+<h2 align="center">Installation</h2>
+<pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
 
+
+<h2 align="center">Reference</h2>
 <pre>
 import {<a href="./docs/createTranslations.md">createTranslations</a>} from <a href="https://www.npmjs.com/package/use-t">'use-t'</a>;
 
