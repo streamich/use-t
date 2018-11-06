@@ -17,41 +17,54 @@
     Translations for React.
   </sup>
   <br />
-  <br />
-  <br />
-  <br />
   <pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
-  <br />
-  <br />
   <br />
   <br />
   <br />
 </div>
 
 
-<h2 align="center"><sub>Reference</sub></h2>
+<h2 align="center">Reference</h2>
 
 <pre>
 import {<a href="./docs/createTranslations.md">createTranslations</a>} from <a href="https://www.npmjs.com/package/use-t">'use-t'</a>;
 
-const {
-  <a href="./docs/Provider.md">Provider</a>,
-  <a href="./docs/Provider.md">useT</a>,
-  <a href="./docs/Provider.md">withT</a>,
-  <a href="./docs/Provider.md">Trans</a>,
-  <a href="./docs/Provider.md">Consumer</a>,
-  <a href="./docs/Provider.md">context</a>,
-} = createTranslations();
+const {<a href="./docs/Provider.md">Provider</a>, <a href="./docs/Provider.md">useT</a>, <a href="./docs/Provider.md">withT</a>,
+    <a href="./docs/Provider.md">Trans</a>, <a href="./docs/Provider.md">Consumer</a>, <a href="./docs/Provider.md">context</a>} = createTranslations();
 </pre>
 
 
 <br />
 <br />
+
+
+<h2 align="center">Example</h2>
+
+```jsx
+import {createTranslations} from 'use-t';
+
+const {Provider, useT} = createTranslations();
+
+const Hello = (props) => {
+  const [t] = useT();
+  return (
+    <div>
+      {t('Hello')}, {props.name}!
+    </div>
+  );
+};
+
+<Provider map={{en: {main: {Hello: 'Hello'}}}}>
+  <Hello />
+</Provider>
+```
+
+
 <br />
-<br />
 
-## License
 
-[Unlicense](./LICENSE) &mdash; public domain.
+<h2 align="center">License</h2>
 
-[img-demo]: https://img.shields.io/badge/demo-%20%20%20%F0%9F%9A%80-green.svg
+<p align="center">
+  <a href="./LICENSE">Unlicense</a> &mdash; public domain.
+</p>
