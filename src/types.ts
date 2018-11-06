@@ -43,13 +43,21 @@ export interface TranslateProps extends UniversalProps<TranslatorFn> {
   ns?: string | string[];
 }
 
+// React hook.
 export type UseT = (namespaces?: string[]) => [TranslatorFn, ProviderState];
+
+// Higler order component.
+export interface WithProps {
+  t?: TranslatorFn;
+  T?: ProviderState;
+}
+export type WithT = (Comp: React.SFC<any>, ns?: string | string[]) => React.SFC<any>;
 
 export interface Result {
   Provider: React.ComponentClass<ProviderProps, ProviderState>;
   Consumer: any;
   context: React.Context<ProviderState>;
   useT: UseT;
-  withT: (Comp) => React.SFC<any>;
+  withT: WithT;
   Translate: any;
 }

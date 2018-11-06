@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {render, createEnhancer} from 'react-universal-interface';
-import {ProviderProps, ProviderState, TranslateProps, Result, UseT, TranslatorFn} from './types';
+import {render} from 'react-universal-interface';
+import {ProviderProps, ProviderState, TranslateProps, Result, UseT, TranslatorFn, WithT} from './types';
 import invariant from 'tiny-invariant';
 
 export * from './types';
@@ -93,6 +93,15 @@ export const createTranslations = (ns: string = 'main'): Result => {
     return [state.createT ? state.createT(nss) : defaultT, state];
   };
 
+  const withT: WithT = <P>(Comp, nss: string | string[] = ns) => {
+    if (!Array.isArray(nss)) nss = [nss];
+    const Enhanced: React.SFC<P> = props => {
+      const [t, T] = useT(nss as string[]);
+      return React.createElement(Comp, {...(props as any), t, T});
+    };
+    return Enhanced;
+  };
+
   const Translate: React.SFC<TranslateProps> = (props) => {
     const nss: string[] = props.ns instanceof Array
       ? props.ns : [props.ns || ns];
@@ -102,8 +111,6 @@ export const createTranslations = (ns: string = 'main'): Result => {
     });
   };
 
-  const withT = createEnhancer(Translate, 't');
-
   return {
     Consumer,
     Provider,
@@ -112,15 +119,4 @@ export const createTranslations = (ns: string = 'main'): Result => {
     Translate,
     withT,
   };
-};
-
-const {Consumer, Provider, context, useT, Translate, withT} = createTranslations();
-
-export {
-  Consumer,
-  Provider,
-  context,
-  useT,
-  Translate,
-  withT,
 };
