@@ -62,7 +62,7 @@ const Hello = (props) => {
 };
 
 <Provider locale="de" map={{de: {main: {Hello: 'Hallo'}}}}>
-  <Hello />
+  <Hello name="Mike" />
 </Provider>
 ```
 
