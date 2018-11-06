@@ -29,21 +29,13 @@
 
 ```js
 import {createTranslations} from 'use-t';
-
-const {
-    Provider,
-    useT,
-    withT,
-    Trans,
-    Consumer,
-    context,
-} = createTranslations();
+const {Provider, useT, withT, Trans, Consumer, context} = createTranslations();
 ```
 
-- [`createTranslations`](./docs/createTranslations.md)
+- [`createTranslations()`](./docs/createTranslations.md)
 - [`<Provider>`](./docs/Provider.md)
-- [`useT`](./docs/useT.md)
-- [`withT`](./docs/withT.md)
+- [`useT()`](./docs/useT.md)
+- [`withT()`](./docs/withT.md)
 - [`<Trans>`](./docs/Trans.md)
 - [`<Consumer>`](./docs/Consumer.md)
 - [`context`](./docs/context.md)
@@ -69,7 +61,7 @@ const Hello = (props) => {
   );
 };
 
-<Provider map={{en: {main: {Hello: 'Hello'}}}}>
+<Provider locale="de" map={{de: {main: {Hello: 'Hallo'}}}}>
   <Hello />
 </Provider>
 ```
