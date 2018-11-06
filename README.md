@@ -15,7 +15,9 @@
 
 
 <h2 align="center">Installation</h2>
+<div align="center">
 <pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
+</div>
 
 
 <br />
