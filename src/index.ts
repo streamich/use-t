@@ -5,6 +5,12 @@ import invariant from 'tiny-invariant';
 
 export * from './types';
 
+const defaultInterpolate = (strs: TemplateStringsArray, args: any[]) => {
+  let str = '', i = 0;
+  for (; i < args.length; i++) str += strs![i] + args[i];
+  return str + strs![i];
+};
+
 export const createTranslations = (ns: string = 'main'): Result => {
   const context = React.createContext<ProviderState>({} as any);
   const {Consumer} = context;
@@ -57,7 +63,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
       this.setState({locale});
     };
 
-    createT = (nss: string[] = []) => {
+    createT = (nss: string[] = []): TranslatorFn => {
       const {locale} = this.state;
       const translationsNamespaced = this.state.map[locale];
       for (const ns of nss) {
@@ -82,6 +88,11 @@ export const createTranslations = (ns: string = 'main'): Result => {
 
         return key;
       };
+      t.t = key => (strs?: TemplateStringsArray, ...args: any[]) => {
+        const result = t(key, ...args);
+        if (result !== key) return result;
+        else return defaultInterpolate(strs!, args);
+      };
 
       return t;
     };
@@ -94,7 +105,8 @@ export const createTranslations = (ns: string = 'main'): Result => {
     }
   };
 
-  const defaultT = k => k;
+  const defaultT: TranslatorFn = k => k;
+  defaultT.t = key => (strs, ...args) => defaultInterpolate(strs!, args);
   const useT: UseT = (namespaces?: string | string[]) => {
     const nss: string[] = namespaces instanceof Array ? namespaces : [namespaces || ns];
     const state = (React as any).useContext(context) as ProviderState;

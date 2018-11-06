@@ -24,6 +24,26 @@ If you don't specify the namespace(s), the default namespace will be used.
 <div>{t('Hello')}</div>
 ```
 
+Your translation can be functions.
+
+```jsx
+<Provider map={{en: {main: {you_have_likes: (num) => `You have ${num} likes.`}}}} />
+
+<div>{t('you_have_likes', 5)}</div>
+// You have 5 likes.
+```
+
+If your translations are functions you can also use tagged template literals.
+
+```jsx
+<Provider map={{en: {main: {hello_user: (name) => `Hi, ${name}!`}}}} />
+
+<div>{t.t('hello_user')`Hello, ${props.name}!`}</div>
+// Hi, <name>!
+```
+
+In this case, if translation was not found, it would return `Hi, <name>!`.
+
 
 ## Context State `state`
 
