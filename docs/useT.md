@@ -6,11 +6,26 @@ React hook that returns you a translation function and state of the [`<Provider>
 const [t, state] = useT();
 ```
 
+You can specify a namespace or a list of namespaces to be used to create the translation function `t`.
+
+```js
+useT('errors');
+useT(['main', 'errors']);
+```
+
+If you don't specify the namespace(s), the default namespace will be used.
+
+
+## Translation Function `t`
+
 `t` function can be used to translate texts.
 
 ```jsx
 <div>{t('Hello')}</div>
 ```
+
+
+## Context State `state`
 
 `state` is the state provided by [`<Provider>`](./Provider.md).
 
@@ -30,7 +45,7 @@ await state.load('fr', 'error');
 when you want to just design presentational components.
 
 
-## Reference
+### Reference
 
 ```js
 state.setLocale(locale);
