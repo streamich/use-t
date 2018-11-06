@@ -19,9 +19,11 @@ export const createTranslations = (ns: string = 'main'): Result => {
 
     constructor (props) {
       super(props);
-      const {map = {}, locale, ns} = props;
+      const {map = {}, locale, defaultLocale, ns} = props;
 
       // Normalize translation map.
+      if (!map[defaultLocale]) map[defaultLocale] = {[ns]: {}};
+      else if (!map[defaultLocale][ns]) map[defaultLocale][ns] = {};
       if (!map[locale]) map[locale] = {[ns]: {}};
       else if (!map[locale][ns]) map[locale][ns] = {};
 
