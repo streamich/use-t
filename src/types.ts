@@ -24,7 +24,8 @@ export interface TranslationMap {
 }
 
 export interface ProviderProps {
-  locale?: string; // Default locale.
+  locale?: string; // Selected locale.
+  defaultLocale?: string; // Default locale.
   ns?: string; // Default namespace.
   loader?: (locale: string, namespace: string) => Promise<Translations>;
   map?: TranslationMap; // Preloaded translations.

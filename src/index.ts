@@ -11,6 +11,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
   const Provider = class extends React.Component<ProviderProps, ProviderState> {
     static defaultProps = {
       locale: 'en',
+      defaultLocale: 'en',
       ns,
     };
 
@@ -63,20 +64,24 @@ export const createTranslations = (ns: string = 'main'): Result => {
         }
       }
 
-      const T: TranslatorFn = (key: string, ...args: any[]) => {
-        for (const namespace of nss) {
-          const translations = translationsNamespaced[namespace];
-          const value = translations[key];
-          if (value !== undefined) {
-            return typeof value === 'function'
-              ? value(T, ...args)
-              : value || key;
+      const t: TranslatorFn = (key: string, ...args: any[]) => {
+        for (const currentLocale of [locale, this.props.defaultLocale]) {
+          if (!currentLocale) break;
+          const translationsNamespaced = this.state.map[currentLocale];
+          for (const namespace of nss) {
+            const translations = translationsNamespaced[namespace];
+            const value = translations[key];
+            if (value !== undefined) {
+              return typeof value === 'function'
+                ? value(t, ...args) : value || key;
+            }
           }
         }
+
         return key;
       };
 
-      return T;
+      return t;
     };
 
     render () {
