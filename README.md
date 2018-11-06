@@ -5,23 +5,8 @@
     🗺
     <br />
     use-t
-    <br />
-    <br />
-    <br />
-    <br />
   </h1>
-  <sup>
-    <br />
-    <br />
-    <br />
-    Translations for React.
-  </sup>
-  <br />
-  <br />
-  <br />
-  <br />
-  <pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
-  <br />
+  <sup>Translations for React.</sup>
   <br />
   <br />
   <br />
@@ -29,29 +14,73 @@
 </div>
 
 
-<h2 align="center"><sub>Reference</sub></h2>
+<h2 align="center">Installation</h2>
+<div align="center">
+<pre>npm i <a href="https://www.npmjs.com/package/use-t">use-t</a></pre>
+</div>
 
-<pre>
-import {<a href="./docs/createTranslations.md">createTranslations</a>} from <a href="https://www.npmjs.com/package/use-t">'use-t'</a>;
+
+<br />
+<br />
+
+
+<h2 align="center">Reference</h2>
+
+
+```js
+import {createTranslations} from 'use-t';
 
 const {
-  <a href="./docs/Provider.md">Provider</a>,
-  <a href="./docs/Provider.md">useT</a>,
-  <a href="./docs/Provider.md">withT</a>,
-  <a href="./docs/Provider.md">Trans</a>,
-  <a href="./docs/Provider.md">Consumer</a>,
-  <a href="./docs/Provider.md">context</a>,
+    Provider,
+    useT,
+    withT,
+    Trans,
+    Consumer,
+    context,
 } = createTranslations();
-</pre>
+```
+
+- [`createTranslations`](./docs/createTranslations.md)
+- [`<Provider>`](./docs/Provider.md)
+- [`useT`](./docs/useT.md)
+- [`withT`](./docs/withT.md)
+- [`<Trans>`](./docs/Trans.md)
+- [`<Consumer>`](./docs/Consumer.md)
+- [`context`](./docs/context.md)
 
 
 <br />
 <br />
+
+
+<h2 align="center">Example</h2>
+
+```jsx
+import {createTranslations} from 'use-t';
+
+const {Provider, useT} = createTranslations();
+
+const Hello = (props) => {
+  const [t] = useT();
+  return (
+    <div>
+      {t('Hello')}, {props.name}!
+    </div>
+  );
+};
+
+<Provider map={{en: {main: {Hello: 'Hello'}}}}>
+  <Hello />
+</Provider>
+```
+
+
 <br />
 <br />
 
-## License
 
-[Unlicense](./LICENSE) &mdash; public domain.
+<h2 align="center">License</h2>
 
-[img-demo]: https://img.shields.io/badge/demo-%20%20%20%F0%9F%9A%80-green.svg
+<p align="center">
+  <a href="./LICENSE">Unlicense</a> &mdash; public domain.
+</p>
