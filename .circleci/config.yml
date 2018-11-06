@@ -39,7 +39,7 @@ refs:
         name: Post commit status for Storybook
         command: |
           npx cross-ci :run \
-            npx commit-status success Storybook "'\${BUILD_VERSION}'" "'https://$CIRCLE_BUILD_NUM-154950925-gh.circle-artifacts.com/0/root/repo/storybook-static/index.html'"
+            npx commit-status success Storybook "'\${BUILD_VERSION}'" "'https://$CIRCLE_BUILD_NUM-156400579-gh.circle-artifacts.com/0/root/repo/storybook-static/index.html'"
 
 jobs:
   all:
