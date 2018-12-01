@@ -4,7 +4,7 @@ Creates translation context, hook, higher order component, and render prop that 
 can use together to manage translations in your app.
 
 ```js
-import {createTranslations} from 'use-t';
+import createTranslations from 'use-t/lib/createTranslations';
 
 const {
   Provider,
