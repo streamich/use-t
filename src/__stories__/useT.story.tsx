@@ -57,3 +57,19 @@ storiesOf('useT', module)
   .add('Without provider', () =>
     <Demo/>
   )
+  .add('Initial language not default, loaded with loader', () =>
+    <Provider
+      defaultLocale='en'
+      locale='fr'
+      map={{
+        en: {
+          main: {Hello: 'Hello', welcome: 'Welcome!'}
+        },
+      }}
+      loader={async (locale, ns) => {
+        return {Hello: 'Bonjour', welcome: 'Lala!'};
+      }}
+    >
+      <Demo />
+    </Provider>
+  )
