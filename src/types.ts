@@ -13,7 +13,7 @@ export interface PropsWithT {
 
 // Collection of translations.
 export interface Translations {
-  [key: string]: string | ((...args: any[]) => any);
+  [key: string]: 0 | string | ((...args: any[]) => any);
 }
 
 // Collecion of translations by namespace.
