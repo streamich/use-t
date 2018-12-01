@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/streamich/use-/compare/v1.1.1...v1.2.0) (2018-12-01)
+
+
+### Features
+
+* allow 0 to indicate it should not be translated ([9633ef5](https://github.com/streamich/use-/commit/9633ef5))
+
 ## [1.1.1](https://github.com/streamich/use-/compare/v1.1.0...v1.1.1) (2018-12-01)
 
 
