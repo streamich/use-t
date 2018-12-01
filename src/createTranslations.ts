@@ -30,8 +30,6 @@ export const createTranslations = (ns: string = 'main'): Result => {
       // Normalize translation map.
       if (!map[defaultLocale]) map[defaultLocale] = {[ns]: {}};
       else if (!map[defaultLocale][ns]) map[defaultLocale][ns] = {};
-      if (!map[locale]) map[locale] = {[ns]: {}};
-      else if (!map[locale][ns]) map[locale][ns] = {};
 
       this.state = {
         locale,
@@ -41,6 +39,10 @@ export const createTranslations = (ns: string = 'main'): Result => {
         setLocale: this.setLocale,
         createT: this.createT,
       };
+
+      if (locale !== defaultLocale) {
+        this.load(locale, ns);
+      }
     }
 
     load = async (locale: string, ns: string) => {
@@ -58,6 +60,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
     };
 
     setLocale = (locale: string) => {
+      if (locale === this.state.locale) return;
       if (!this.state.map[locale])
         this.state.map[locale] = {};
       this.setState({locale});
