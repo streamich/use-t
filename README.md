@@ -28,17 +28,16 @@
 
 
 ```js
-import {createTranslations} from 'use-t';
-const {Provider, useT, withT, Trans, Consumer, context} = createTranslations();
+import {Provider, useT, withT, Trans, Consumer, context} from 'use-t';
 ```
 
-- [`createTranslations()`](./docs/createTranslations.md)
 - [`<Provider>`](./docs/Provider.md)
 - [`useT()`](./docs/useT.md)
 - [`withT()`](./docs/withT.md)
 - [`<Trans>`](./docs/Trans.md)
 - [`<Consumer>`](./docs/Consumer.md)
 - [`context`](./docs/context.md)
+- [`createTranslations()`](./docs/createTranslations.md)
 
 
 <br />
@@ -48,9 +47,7 @@ const {Provider, useT, withT, Trans, Consumer, context} = createTranslations();
 <h2 align="center">Example</h2>
 
 ```jsx
-import {createTranslations} from 'use-t';
-
-const {Provider, useT} = createTranslations();
+import {Provider, useT} from 'use-t';
 
 const Hello = (props) => {
   const [t] = useT();
