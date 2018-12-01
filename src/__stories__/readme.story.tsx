@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import {createTranslations} from '..';
+import createTranslations from '../createTranslations';
 
 const {Provider, useT} = createTranslations();
 

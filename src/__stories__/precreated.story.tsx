@@ -1,23 +1,20 @@
 import * as React from 'react';
 import {storiesOf} from '@storybook/react';
-import createTranslations from '../createTranslations';
+import {Provider, useT} from '..';
 
-const {Provider, withT} = createTranslations();
-
-const Demo_: React.SFC<{t: any, T: any}> = ({t, T}) => {
+const Demo = () => {
+  const [t, {setLocale}] = useT();
   return (
     <div>
       {t('Hello')}, user! {t('welcome')}
       <br />
-      <button onClick={() => T.setLocale('en')}>en</button>
-      <button onClick={() => T.setLocale('fr')}>fr</button>
+      <button onClick={() => setLocale('en')}>en</button>
+      <button onClick={() => setLocale('fr')}>fr</button>
     </div>
   );
 };
 
-const Demo = withT(Demo_);
-
-storiesOf('withT', module)
+storiesOf('useT precreated', module)
   .add('Switch preloaded translations', () =>
     <Provider map={{
       en: {
@@ -27,7 +24,7 @@ storiesOf('withT', module)
         main: {Hello: 'Bonjour', welcome: 'Lala!'}
       },
     }}>
-      <Demo />
+      <Demo/>
     </Provider>
   )
   .add('Missing language', () =>
@@ -39,14 +36,18 @@ storiesOf('withT', module)
       <Demo/>
     </Provider>
   )
-  .add('Load translations dynamically', () =>
+  .add('Load translations dynamically, 2 sec delay', () =>
     <Provider
       map={{
         en: {
           main: {Hello: 'Hello', welcome: 'Welcome!'}
         },
       }}
-      loader={() => Promise.resolve({Hello: 'Bonjour', welcome: 'Lala!'})}
+      loader={() => new Promise(resolve => {
+        setTimeout(() => {
+          resolve({Hello: 'Bonjour', welcome: 'Lala!'});
+        }, 2000);
+      })}
     >
       <Demo/>
     </Provider>
