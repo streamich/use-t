@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/streamich/use-/compare/v1.0.0...v1.1.0) (2018-12-01)
+
+
+### Features
+
+* 🎸 precreate React primitives ([5eda1ea](https://github.com/streamich/use-/commit/5eda1ea))
+
 # 1.0.0 (2018-11-06)
 
 
