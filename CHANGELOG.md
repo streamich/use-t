@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/streamich/use-/compare/v1.1.0...v1.1.1) (2018-12-01)
+
+
+### Bug Fixes
+
+* 🐛 load initial language if not def and in loader ([a27b47f](https://github.com/streamich/use-/commit/a27b47f))
+
 # [1.1.0](https://github.com/streamich/use-/compare/v1.0.0...v1.1.0) (2018-12-01)
 
 
