@@ -45,6 +45,7 @@ export interface ProviderState {
 
 export interface TransProps extends UniversalProps<{t: TranslatorFn, T: ProviderState}> {
   ns?: string | string[];
+  children: ({t: TranslatorFn, T: ProviderState}) => React.ReactNode;
 }
 
 // React hook.
@@ -60,4 +61,5 @@ export interface Result {
   useT: UseT;
   withT: WithT;
   Trans: React.SFC<TransProps>;
+  T: TranslatorFn;
 }
