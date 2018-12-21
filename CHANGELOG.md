@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/streamich/use-/compare/v1.2.0...v1.3.0) (2018-12-21)
+
+
+### Bug Fixes
+
+* 🐛 export correctly default translation function ([48266d5](https://github.com/streamich/use-/commit/48266d5))
+
+
+### Features
+
+* 🎸 export default translation function as T ([0ac3429](https://github.com/streamich/use-/commit/0ac3429))
+* 🎸 implement FaCC and HOC without hooks ([7956b3d](https://github.com/streamich/use-/commit/7956b3d))
+
 # [1.2.0](https://github.com/streamich/use-/compare/v1.1.1...v1.2.0) (2018-12-01)
 
 
