@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {render} from 'react-universal-interface';
 import {ProviderProps, ProviderState, TransProps, Result, UseT, TranslatorFn, WithT} from './types';
 import invariant from 'tiny-invariant';
 
@@ -63,10 +62,12 @@ export const createTranslations = (ns: string = 'main'): Result => {
       if (locale === this.state.locale) return;
       if (!this.state.map[locale])
         this.state.map[locale] = {};
-      this.setState({locale});
+      this.setState({
+        locale,
+      });
     };
 
-    createT = (nss: string[] = []): TranslatorFn => {
+    createT = (nss: string[] = [this.props.ns as string]): TranslatorFn => {
       const {locale} = this.state;
       const translationsNamespaced = this.state.map[locale];
       for (const ns of nss) {
@@ -116,6 +117,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
     return [state.createT ? state.createT(nss) : defaultT, state];
   };
 
+  /*
   const withT: WithT = <P>(Comp, nss: string | string[] = ns) => {
     if (!Array.isArray(nss)) nss = [nss];
     const Enhanced: React.SFC<P> = props => {
@@ -124,12 +126,41 @@ export const createTranslations = (ns: string = 'main'): Result => {
     };
     return Enhanced;
   };
+  */
 
+  // Implement withT HOC without hooks, as React did not release hooks yet.
+  const withT: WithT = <P>(Comp: React.ComponentClass<P> | React.SFC<P>, nss: string | string[] = ns) => {
+    if (!Array.isArray(nss)) nss = [nss];
+    const Enhanced: React.SFC<Exclude<P, 't' | 'T'>> = props => {
+      return React.createElement(Consumer, null, state => {
+        const t = state.createT ? state.createT(nss) : defaultT
+        const T = state;
+        return React.createElement(Comp, {...props, t, T});
+      });
+    };
+    return Enhanced;
+  };
+
+  /*
   const Trans: React.SFC<TransProps> = (props) => {
     const nss: string[] = props.ns instanceof Array
       ? props.ns : [props.ns || ns];
     const [t, T] = useT(nss);
     return render(props, {t, T});
+  };
+  */
+
+  // Implement Trans render prop without hooks, as React did not release hooks yet.
+  const Trans: React.SFC<TransProps> = (props) => {
+    return React.createElement(Consumer, null, T => {
+      const nss: string[] | undefined = Array.isArray(props.ns)
+        ? props.ns
+        : typeof props.ns === 'string'
+        ? [props.ns as unknown as string]
+        : undefined;
+      const t = T.createT ? T.createT(nss) : defaultT;
+      return props.children({t, T}) || null;
+    });
   };
 
   return {

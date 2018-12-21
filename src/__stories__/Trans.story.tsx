@@ -30,7 +30,7 @@ storiesOf('Trans', module)
       }</Trans>
     </Provider>
   )
-  .add('Switch preloaded translations as render prop', () =>
+  .add('Switch preloaded translations as "children" render prop', () =>
     <Provider map={{
       en: {
         main: {Hello: 'Hello', welcome: 'Welcome!'}
@@ -39,7 +39,7 @@ storiesOf('Trans', module)
         main: {Hello: 'Bonjour', welcome: 'Lala!'}
       },
     }}>
-      <Trans render={({t, T}) =>
+      <Trans children={({t, T}) =>
         <Demo t={t} T={T} />
       } />
     </Provider>
