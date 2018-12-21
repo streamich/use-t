@@ -170,6 +170,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
     useT,
     Trans,
     withT,
+    T: defaultT,
   };
 };
 

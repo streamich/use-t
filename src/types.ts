@@ -61,4 +61,5 @@ export interface Result {
   useT: UseT;
   withT: WithT;
   Trans: React.SFC<TransProps>;
+  T: TranslatorFn;
 }
