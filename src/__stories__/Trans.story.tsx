@@ -29,7 +29,7 @@ storiesOf('Trans', module)
         <Demo t={t} T={T} />
       }</Trans>
       <Trans>Hello</Trans>
-      <Trans> yo {'welcome'} ... {({t}) => t('welcome')}!</Trans>
+      <Trans> yo {'welcome'} ... {t => t('welcome')}!</Trans>
     </Provider>
   )
   .add('Switch preloaded translations as "children" render prop', () =>
