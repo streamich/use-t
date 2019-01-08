@@ -163,7 +163,11 @@ export const createTranslations = (ns: string = 'main'): Result => {
         return props.children({t, T}) || null;
       } else if(Array.isArray(props.children)) {
         return React.createElement(React.Fragment, null, ...props.children.map(item =>
-          typeof item === 'function' ? (item as any)(t) : t(item)
+          typeof item === 'function'
+            ? (item as any)(t)
+            : typeof item === 'string'
+            ? t(item)
+            : item
         ));
       } else {
         return props.children || null;
