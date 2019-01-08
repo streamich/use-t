@@ -14,6 +14,18 @@ It provides an object with translation function `t` and translation state `T`.
 }</Trans>
 ```
 
+It also accepts pure strings.
+
+```jsx
+<Trans>Hello</Trans>
+```
+
+Or a mix of strings and functions.
+
+```jsx
+<Trans>{t => t('Hello')}!</Trans>
+```
+
 
 ## Props
 
