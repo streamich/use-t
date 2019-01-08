@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/streamich/use-/compare/v1.3.0...v1.4.0) (2019-01-08)
+
+
+### Bug Fixes
+
+* 🐛 translate only strings in <Trans> list ([f1e5ed6](https://github.com/streamich/use-/commit/f1e5ed6))
+
+
+### Features
+
+* 🎸 allow non-functional children in <Trans> component ([aa8ae78](https://github.com/streamich/use-/commit/aa8ae78))
+* 🎸 use simple t() in trans list children ([5cbcb57](https://github.com/streamich/use-/commit/5cbcb57))
+
 # [1.3.0](https://github.com/streamich/use-/compare/v1.2.0...v1.3.0) (2018-12-21)
 
 
