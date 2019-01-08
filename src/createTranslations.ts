@@ -159,7 +159,15 @@ export const createTranslations = (ns: string = 'main'): Result => {
         ? [props.ns as unknown as string]
         : undefined;
       const t = T.createT ? T.createT(nss) : defaultT;
-      return props.children({t, T}) || null;
+      if (typeof props.children === 'function') {
+        return props.children({t, T}) || null;
+      } else if(Array.isArray(props.children)) {
+        return React.createElement(React.Fragment, null, ...props.children.map(item =>
+          typeof item === 'function' ? (item as any)({t, T}) : t(item)
+        ));
+      } else {
+        return props.children || null;
+      }
     });
   };
 
