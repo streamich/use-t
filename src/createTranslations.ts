@@ -116,28 +116,12 @@ export const createTranslations = (ns: string = 'main'): Result => {
     return [state.createT ? state.createT(nss) : defaultT, state];
   };
 
-  /*
-  const withT: WithT = <P>(Comp, nss: string | string[] = ns) => {
-    if (!Array.isArray(nss)) nss = [nss];
-    const Enhanced: React.SFC<P> = props => {
-      const [t, T] = useT(nss as string[]);
-      return React.createElement(Comp, {...(props as any), t, T});
-    };
-    return Enhanced;
-  };
-  */
-
-  // Implement withT HOC without hooks, as React did not release hooks yet.
   const withT: WithT = <T extends React.ComponentType>(Comp: T, nss: string | string[] = ns) => {
     if (!Array.isArray(nss)) nss = [nss];
-    const Enhanced: T = (props => {
-      return React.createElement(Consumer as any, null, state => {
-        const t = state.createT ? state.createT(nss) : defaultT
-        const T = state;
-        return React.createElement(Comp as any, {...props, t, T});
-      });
+    return (props => {
+      const [t, T] = useT(nss as string[]);
+      return React.createElement(Comp, {...(props as any), t, T});
     }) as T;
-    return Enhanced;
   };
 
   const Trans: React.FC<TransProps> = (props) => {
