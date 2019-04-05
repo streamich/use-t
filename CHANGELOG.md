@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/streamich/use-/compare/v1.4.0...v1.5.0) (2019-04-05)
+
+
+### Bug Fixes
+
+* 🐛 export TS typings, fix withT() typings ([190332a](https://github.com/streamich/use-/commit/190332a))
+
+
+### Features
+
+* 🎸 use useT inside <Trans>, translate inline text ([a391a66](https://github.com/streamich/use-/commit/a391a66))
+
 # [1.4.0](https://github.com/streamich/use-/compare/v1.3.0...v1.4.0) (2019-01-08)
 
 
