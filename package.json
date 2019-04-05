@@ -30,13 +30,11 @@
   },
   "homepage": "https://github.com/streamich/use-t#readme",
   "dependencies": {
-    "@types/react": "^16.8.12",
-    "@types/react-dom": "^16.8.3",
-    "react-universal-interface": "^0.5.0",
-    "tiny-invariant": "^1.0.2"
+    "tiny-invariant": "^1.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
+    "@types/react": "^16.8.12",
+    "@babel/core": "^7.4.3",
     "@semantic-release/changelog": "^3.0.1",
     "@semantic-release/git": "^7.0.5",
     "@semantic-release/npm": "^5.0.5",
@@ -54,11 +52,11 @@
     "semantic-release": "^15.10.7",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",
-    "typescript": "^3.4.1"
+    "typescript": "^3.3"
   },
   "peerDependencies": {
-    "react": "16.7.0-alpha.0",
-    "react-dom": "16.7.0-alpha.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "config": {
     "commitizen": {

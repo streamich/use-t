@@ -49,7 +49,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
       if (!this.state.map[locale][ns]) {
         this.state.map[locale][ns] = {};
         this.setState({...this.state});
-        invariant(this.props.loader, 'use-t provider .loader() prop not set.');
+        invariant(!!this.props.loader, 'use-t provider .loader() prop not set.');
         const translations = await this.props.loader!(locale, ns);
         this.state.map[locale][ns] = translations;
         this.setState({...this.state});
@@ -137,7 +137,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
             ? (item as any)(t)
             : typeof item === 'string'
               ? t(item)
-              : item
+              : item || null
         ))
         : typeof children === 'string'
           ? t(children)
