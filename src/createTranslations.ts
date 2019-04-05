@@ -131,7 +131,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
   const withT: WithT = <T extends React.ComponentType>(Comp: T, nss: string | string[] = ns) => {
     if (!Array.isArray(nss)) nss = [nss];
     const Enhanced: T = (props => {
-      return React.createElement(Consumer, null, state => {
+      return React.createElement(Consumer as any, null, state => {
         const t = state.createT ? state.createT(nss) : defaultT
         const T = state;
         return React.createElement(Comp as any, {...props, t, T});
@@ -140,38 +140,24 @@ export const createTranslations = (ns: string = 'main'): Result => {
     return Enhanced;
   };
 
-  /*
-  const Trans: React.SFC<TransProps> = (props) => {
-    const nss: string[] = props.ns instanceof Array
-      ? props.ns : [props.ns || ns];
+  const Trans: React.FC<TransProps> = (props) => {
+    const {children} = props;
+    const nss: string[] = props.ns instanceof Array ? props.ns : [props.ns || ns];
     const [t, T] = useT(nss);
-    return render(props, {t, T});
-  };
-  */
 
-  // Implement Trans render prop without hooks, as React did not release hooks yet.
-  const Trans: React.SFC<TransProps> = (props) => {
-    return React.createElement(Consumer, null, T => {
-      const nss: string[] | undefined = Array.isArray(props.ns)
-        ? props.ns
-        : typeof props.ns === 'string'
-        ? [props.ns as unknown as string]
-        : undefined;
-      const t = T.createT ? T.createT(nss) : defaultT;
-      if (typeof props.children === 'function') {
-        return props.children({t, T}) || null;
-      } else if(Array.isArray(props.children)) {
-        return React.createElement(React.Fragment, null, ...props.children.map(item =>
+    return (typeof children === 'function'
+      ? children(t, T)
+      : children instanceof Array
+        ? React.createElement(React.Fragment, null, ...children.map(item =>
           typeof item === 'function'
             ? (item as any)(t)
             : typeof item === 'string'
-            ? t(item)
-            : item
-        ));
-      } else {
-        return props.children || null;
-      }
-    });
+              ? t(item)
+              : item
+        ))
+        : typeof children === 'string'
+          ? t(children)
+          : children) || null;
   };
 
   return {
