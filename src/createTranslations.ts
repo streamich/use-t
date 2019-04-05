@@ -2,8 +2,6 @@ import * as React from 'react';
 import {ProviderProps, ProviderState, TransProps, Result, UseT, TranslatorFn, WithT} from './types';
 import invariant from 'tiny-invariant';
 
-export * from './types';
-
 const defaultInterpolate = (strs: TemplateStringsArray, args: any[]) => {
   let str = '', i = 0;
   for (; i < args.length; i++) str += strs![i] + args[i];
@@ -76,7 +74,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
         }
       }
 
-      const t: TranslatorFn = (key: string, ...args: any[]) => {
+      const t: TranslatorFn = ((key: string, ...args: any[]) => {
         for (const currentLocale of [locale, this.props.defaultLocale]) {
           if (!currentLocale) break;
           const translationsNamespaced = this.state.map[currentLocale];
@@ -91,7 +89,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
         }
 
         return key;
-      };
+      }) as TranslatorFn;
       t.t = key => (strs?: TemplateStringsArray, ...args: any[]) => {
         const result = t(key, ...args);
         if (result !== key) return result;
@@ -109,8 +107,9 @@ export const createTranslations = (ns: string = 'main'): Result => {
     }
   };
 
-  const defaultT: TranslatorFn = k => k;
+  const defaultT: TranslatorFn = (k => k) as TranslatorFn;
   defaultT.t = key => (strs, ...args) => defaultInterpolate(strs!, args);
+
   const useT: UseT = (namespaces?: string | string[]) => {
     const nss: string[] = namespaces instanceof Array ? namespaces : [namespaces || ns];
     const state = (React as any).useContext(context) as ProviderState;
@@ -129,15 +128,15 @@ export const createTranslations = (ns: string = 'main'): Result => {
   */
 
   // Implement withT HOC without hooks, as React did not release hooks yet.
-  const withT: WithT = <P>(Comp: React.ComponentClass<P> | React.SFC<P>, nss: string | string[] = ns) => {
+  const withT: WithT = <T extends React.ComponentType>(Comp: T, nss: string | string[] = ns) => {
     if (!Array.isArray(nss)) nss = [nss];
-    const Enhanced: React.SFC<Exclude<P, 't' | 'T'>> = props => {
+    const Enhanced: T = (props => {
       return React.createElement(Consumer, null, state => {
         const t = state.createT ? state.createT(nss) : defaultT
         const T = state;
-        return React.createElement(Comp, {...props, t, T});
+        return React.createElement(Comp as any, {...props, t, T});
       });
-    };
+    }) as T;
     return Enhanced;
   };
 
