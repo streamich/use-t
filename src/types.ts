@@ -1,5 +1,3 @@
-import {UniversalProps} from 'react-universal-interface';
-
 // Translation function `t`.
 export interface TranslatorFn {
   (key: string, ...args: any[]): string;
@@ -43,10 +41,9 @@ export interface ProviderState {
   createT: (namespaces: string[]) => TranslatorFn;
 }
 
-export interface TransProps extends UniversalProps<{t: TranslatorFn, T: ProviderState}> {
+export interface TransProps {
   ns?: string | string[];
-  // children: ({t: TranslatorFn, T: ProviderState}) => React.ReactNode;
-  children: any;
+  children: any | React.ReactChild | ((t: TranslatorFn, T: ProviderState) => React.ReactChild);
 }
 
 // React hook.

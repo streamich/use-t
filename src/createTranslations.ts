@@ -2,8 +2,6 @@ import * as React from 'react';
 import {ProviderProps, ProviderState, TransProps, Result, UseT, TranslatorFn, WithT} from './types';
 import invariant from 'tiny-invariant';
 
-export * from './types';
-
 const defaultInterpolate = (strs: TemplateStringsArray, args: any[]) => {
   let str = '', i = 0;
   for (; i < args.length; i++) str += strs![i] + args[i];
@@ -51,7 +49,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
       if (!this.state.map[locale][ns]) {
         this.state.map[locale][ns] = {};
         this.setState({...this.state});
-        invariant(this.props.loader, 'use-t provider .loader() prop not set.');
+        invariant(!!this.props.loader, 'use-t provider .loader() prop not set.');
         const translations = await this.props.loader!(locale, ns);
         this.state.map[locale][ns] = translations;
         this.setState({...this.state});
@@ -76,7 +74,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
         }
       }
 
-      const t: TranslatorFn = (key: string, ...args: any[]) => {
+      const t: TranslatorFn = ((key: string, ...args: any[]) => {
         for (const currentLocale of [locale, this.props.defaultLocale]) {
           if (!currentLocale) break;
           const translationsNamespaced = this.state.map[currentLocale];
@@ -91,7 +89,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
         }
 
         return key;
-      };
+      }) as TranslatorFn;
       t.t = key => (strs?: TemplateStringsArray, ...args: any[]) => {
         const result = t(key, ...args);
         if (result !== key) return result;
@@ -109,70 +107,41 @@ export const createTranslations = (ns: string = 'main'): Result => {
     }
   };
 
-  const defaultT: TranslatorFn = k => k;
+  const defaultT: TranslatorFn = (k => k) as TranslatorFn;
   defaultT.t = key => (strs, ...args) => defaultInterpolate(strs!, args);
+
   const useT: UseT = (namespaces?: string | string[]) => {
     const nss: string[] = namespaces instanceof Array ? namespaces : [namespaces || ns];
     const state = (React as any).useContext(context) as ProviderState;
     return [state.createT ? state.createT(nss) : defaultT, state];
   };
 
-  /*
-  const withT: WithT = <P>(Comp, nss: string | string[] = ns) => {
+  const withT: WithT = <T extends React.ComponentType>(Comp: T, nss: string | string[] = ns) => {
     if (!Array.isArray(nss)) nss = [nss];
-    const Enhanced: React.SFC<P> = props => {
+    return (props => {
       const [t, T] = useT(nss as string[]);
       return React.createElement(Comp, {...(props as any), t, T});
-    };
-    return Enhanced;
-  };
-  */
-
-  // Implement withT HOC without hooks, as React did not release hooks yet.
-  const withT: WithT = <P>(Comp: React.ComponentClass<P> | React.SFC<P>, nss: string | string[] = ns) => {
-    if (!Array.isArray(nss)) nss = [nss];
-    const Enhanced: React.SFC<Exclude<P, 't' | 'T'>> = props => {
-      return React.createElement(Consumer, null, state => {
-        const t = state.createT ? state.createT(nss) : defaultT
-        const T = state;
-        return React.createElement(Comp, {...props, t, T});
-      });
-    };
-    return Enhanced;
+    }) as T;
   };
 
-  /*
-  const Trans: React.SFC<TransProps> = (props) => {
-    const nss: string[] = props.ns instanceof Array
-      ? props.ns : [props.ns || ns];
+  const Trans: React.FC<TransProps> = (props) => {
+    const {children} = props;
+    const nss: string[] = props.ns instanceof Array ? props.ns : [props.ns || ns];
     const [t, T] = useT(nss);
-    return render(props, {t, T});
-  };
-  */
 
-  // Implement Trans render prop without hooks, as React did not release hooks yet.
-  const Trans: React.SFC<TransProps> = (props) => {
-    return React.createElement(Consumer, null, T => {
-      const nss: string[] | undefined = Array.isArray(props.ns)
-        ? props.ns
-        : typeof props.ns === 'string'
-        ? [props.ns as unknown as string]
-        : undefined;
-      const t = T.createT ? T.createT(nss) : defaultT;
-      if (typeof props.children === 'function') {
-        return props.children({t, T}) || null;
-      } else if(Array.isArray(props.children)) {
-        return React.createElement(React.Fragment, null, ...props.children.map(item =>
+    return (typeof children === 'function'
+      ? children(t, T)
+      : children instanceof Array
+        ? React.createElement(React.Fragment, null, ...children.map(item =>
           typeof item === 'function'
             ? (item as any)(t)
             : typeof item === 'string'
-            ? t(item)
-            : item
-        ));
-      } else {
-        return props.children || null;
-      }
-    });
+              ? t(item)
+              : item || null
+        ))
+        : typeof children === 'string'
+          ? t(children)
+          : children) || null;
   };
 
   return {

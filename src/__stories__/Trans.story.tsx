@@ -25,7 +25,7 @@ storiesOf('Trans', module)
         main: {Hello: 'Bonjour', welcome: 'Lala!'}
       },
     }}>
-      <Trans>{({t, T}) =>
+      <Trans>{(t, T) =>
         <Demo t={t} T={T} />
       }</Trans>
       <Trans>Hello</Trans>
@@ -41,7 +41,7 @@ storiesOf('Trans', module)
         main: {Hello: 'Bonjour', welcome: 'Lala!'}
       },
     }}>
-      <Trans children={({t, T}) =>
+      <Trans children={(t, T) =>
         <Demo t={t} T={T} />
       } />
     </Provider>
@@ -52,7 +52,7 @@ storiesOf('Trans', module)
         main: {Hello: 'Hello', welcome: 'Welcome!'}
       },
     }}>
-      <Trans>{({t, T}) =>
+      <Trans>{(t, T) =>
         <Demo t={t} T={T} />
       }</Trans>
     </Provider>
@@ -70,13 +70,33 @@ storiesOf('Trans', module)
         }, 2000);
       })}
     >
-      <Trans>{({t, T}) =>
+      <Trans>{(t, T) =>
         <Demo t={t} T={T} />
       }</Trans>
     </Provider>
   )
   .add('Without provider', () =>
-    <Trans>{({t, T}) =>
+    <Trans>{(t, T) =>
       <Demo t={t} T={T} />
     }</Trans>
+  )
+  .add('Text as children', () =>
+    <Provider map={{
+      en: {
+        main: {Hello: 'Hello', welcome: 'Welcome!'}
+      },
+      fr: {
+        main: {Hello: 'Bonjour', welcome: 'Lala!'}
+      },
+    }}>
+      <div>
+        <Trans children={(_, T) => (
+          <>
+            <button onClick={() => T.setLocale('en')}>en</button>
+            <button onClick={() => T.setLocale('fr')}>fr</button>
+          </>
+        )} />
+        <Trans>Hello</Trans>, user! <Trans>welcome</Trans>
+      </div>
+    </Provider>
   )
