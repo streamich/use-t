@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/streamich/use-/compare/v1.5.0...v1.6.0) (2019-04-21)
+
+
+### Features
+
+* 🎸 allow to change locale through props ([31e91b5](https://github.com/streamich/use-/commit/31e91b5))
+
 # [1.5.0](https://github.com/streamich/use-/compare/v1.4.0...v1.5.0) (2019-04-05)
 
 
