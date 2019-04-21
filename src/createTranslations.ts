@@ -42,6 +42,13 @@ export const createTranslations = (ns: string = 'main'): Result => {
       }
     }
 
+    shouldComponentUpdate (nextProps) {
+      if (nextProps.locale !== this.props.locale) {
+        this.setLocale(nextProps.locale);
+      }
+      return true;
+    };
+
     load = async (locale: string, ns: string) => {
       if (!this.state.map[locale]) {
         this.state.map[locale] = {};
