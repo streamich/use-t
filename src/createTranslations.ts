@@ -2,14 +2,32 @@ import * as React from 'react';
 import {ProviderProps, ProviderState, TransProps, Result, UseT, TranslatorFn, WithT} from './types';
 import invariant from 'tiny-invariant';
 
-const defaultInterpolate = (strs: TemplateStringsArray, args: any[]) => {
-  let str = '', i = 0;
-  for (; i < args.length; i++) str += strs![i] + args[i];
-  return str + strs![i];
+const {createContext, createElement, Fragment} = React;
+
+const defaultInterpolate = (strs: TemplateStringsArray, ...args: React.ReactNode[]) => {
+  const list: React.ReactNode[] = [];
+  let i = 0;
+  for (; i < args.length; i++) {
+    list.push(strs![i]);
+    list.push(args[i]);
+  }
+  list.push(strs![i]);
+  return createElement(Fragment, {}, ...list);
+};
+
+const translationInterpolate = (values: React.ReactNode[]) => (strs: TemplateStringsArray, ...args: number[]) => {
+  const list: React.ReactNode[] = [];
+  let i = 0;
+  for (; i < args.length; i++) {
+    list.push(strs![i]);
+    list.push(values[args[i]]);
+  }
+  list.push(strs![i]);
+  return createElement(Fragment, {}, ...list);
 };
 
 export const createTranslations = (ns: string = 'main'): Result => {
-  const context = React.createContext<ProviderState>({} as any);
+  const context = createContext<ProviderState>({} as any);
   const {Consumer} = context;
   const Provider = class extends React.Component<ProviderProps, ProviderState> {
     static defaultProps = {
@@ -90,7 +108,7 @@ export const createTranslations = (ns: string = 'main'): Result => {
             const value = translations[key];
             if (value !== undefined) {
               return typeof value === 'function'
-                ? value(...args) : value || key;
+                ? value(translationInterpolate(args)) : (value || key);
             }
           }
         }
@@ -99,8 +117,9 @@ export const createTranslations = (ns: string = 'main'): Result => {
       }) as TranslatorFn;
       t.t = key => (strs?: TemplateStringsArray, ...args: any[]) => {
         const result = t(key, ...args);
-        if (result !== key) return result;
-        else return defaultInterpolate(strs!, args);
+        if (typeof result === 'object') return result;
+        else if (result !== key) return createElement(Fragment, {}, result);
+        else return defaultInterpolate(strs!, ...args);
       };
 
       return t;
