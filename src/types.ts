@@ -1,7 +1,7 @@
 // Translation function `t`.
 export interface TranslatorFn {
   (key: string, ...args: any[]): string;
-  t: (key: string) => (strs?: TemplateStringsArray, ...args: any[]) => string;
+  t: (key: string) => (strs?: TemplateStringsArray, ...args: any[]) => React.ReactElement;
 }
 
 // Props of React components with translation function.
