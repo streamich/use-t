@@ -47,7 +47,7 @@ export interface TransProps {
 }
 
 // React hook.
-export type UseT = (namespaces?: string[]) => [TranslatorFn, ProviderState];
+export type UseT = (namespaces?: string | string[]) => [TranslatorFn, ProviderState];
 
 // Higler order component.
 export type WithT = (Comp: React.SFC<any>, ns?: string | string[]) => React.SFC<any>;
