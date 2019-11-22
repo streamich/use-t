@@ -142,12 +142,12 @@ export const createTranslations = (ns: string = 'main'): Result => {
     return [state.createT ? state.createT(nss) : defaultT, state];
   };
 
-  const withT: WithT = <T extends React.ComponentType>(Comp: T, nss: string | string[] = ns) => {
+  const withT: WithT = (Comp, nss = ns) => {
     if (!Array.isArray(nss)) nss = [nss];
     return (props => {
       const [t, T] = useT(nss as string[]);
       return React.createElement(Comp, {...(props as any), t, T});
-    }) as T;
+    });
   };
 
   const Trans: React.FC<TransProps> = (props) => {
