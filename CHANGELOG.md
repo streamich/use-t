@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/streamich/use-/compare/v1.6.1...v1.6.2) (2019-11-22)
+
+
+### Bug Fixes
+
+* 🐛 improve TypeScript typings of withT() HOC ([f463493](https://github.com/streamich/use-/commit/f463493))
+
 ## [1.6.1](https://github.com/streamich/use-/compare/v1.6.0...v1.6.1) (2019-08-26)
 
 
