@@ -49,8 +49,13 @@ export interface TransProps {
 // React hook.
 export type UseT = (namespaces?: string[]) => [TranslatorFn, ProviderState];
 
-// Higler order component.
-export type WithT = (Comp: React.SFC<any>, ns?: string | string[]) => React.SFC<any>;
+export interface WithTProps {
+  t: TranslatorFn;
+  T: ProviderState;
+}
+
+// Higher order component.
+export type WithT = <P extends WithTProps>(Comp: React.ComponentType<P>, ns?: string | string[]) => React.FC<Omit<P, 't' | 'T'>>;
 
 export interface Result {
   Provider: React.ComponentClass<ProviderProps, ProviderState>;
