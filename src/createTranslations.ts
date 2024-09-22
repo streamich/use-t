@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {ProviderProps, ProviderState, TransProps, Result, UseT, TranslatorFn, WithT} from './types';
-import invariant from 'tiny-invariant';
 
 const {createContext, createElement, Fragment} = React;
 
@@ -74,7 +73,6 @@ export const createTranslations = (ns: string = 'main'): Result => {
       if (!this.state.map[locale][ns]) {
         this.state.map[locale][ns] = {};
         this.setState({...this.state});
-        invariant(!!this.props.loader, 'use-t provider .loader() prop not set.');
         const translations = await this.props.loader!(locale, ns);
         this.state.map[locale][ns] = translations;
         this.setState({...this.state});
